@@ -15,7 +15,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermssionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     """ Custom user model that supports email """
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
