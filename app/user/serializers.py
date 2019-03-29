@@ -18,10 +18,10 @@ class UserSerializer(serializers.ModelSerializer):
         return get_user_model().objects.create_user(**validated_data)
 
 
-class AuthTokenSerialier(serializers.Serializer):
+class AuthTokenSerializer(serializers.Serializer):
     # Serializer for the user authentication object
     email = serializers.CharField()
-    password = serialiers.CharField(
+    password = serializers.CharField(
         style={'input_type': 'password'},
         trim_whitespace=False
     )
