@@ -15,8 +15,7 @@ class TagViewSet(viewsets.GenericViewSet,
     serializer_class = serializers.TagSerializer
 
     def get_queryset(self):
-        return self.queryset.filter(user=self.request.user)
-                            .order_by('-name')
+        return self.queryset.filter(user=self.request.user).order_by('-name')
     
     def perform_create(self, serializer):
         # Create new tag
