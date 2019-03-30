@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'core.apps.CoreConfig',
     'user.apps.UserConfig',
+    'recipy.apps.RecipyConfig',
 
 ]
 
