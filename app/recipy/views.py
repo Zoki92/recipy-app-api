@@ -9,6 +9,7 @@ class TagViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
     # Manage tags in the database
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+    queryset = Tag.objects.all()
     serializer_class = serializers.TagSerializer
 
     def get_queryset(self):
