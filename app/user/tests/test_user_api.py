@@ -84,7 +84,7 @@ class PublicUserApiTests(TestCase):
     def test_retrieve_user_unauthorized(self):
         # Test that authentication is required for users
         res = self.client.get(ME_URL)
-        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
     
 
 class PrivateUserApiTest(TestCase):
@@ -102,7 +102,7 @@ class PrivateUserApiTest(TestCase):
     def test_retrieve_profile_success(self):
         # Test retrieving profile for logged in user
         res = self.client.get(ME_URL)
-        self.assertEqual(res.status_code, state.HTTP_200_OK)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, {
             'name': self.user.name,
             'email': self.user.email
