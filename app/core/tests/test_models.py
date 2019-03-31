@@ -6,6 +6,7 @@ from core import models
 def sample_user(email='test@test.com', password='123testing'):
     return get_user_model().objects.create_user(email, password)
 
+
 class ModelTests(TestCase):
 
     def test_create_user_with_email_successful(self):
@@ -41,8 +42,8 @@ class ModelTests(TestCase):
             name='Vegan'
         )
         self.assertEqual(str(tag), tag.name)
-    
-    def test_ingrediet_str(self):
+
+    def test_ingredient_str(self):
         # Test the ingredient string representation
         ingredient = models.Ingredient.objects.create(
             user=sample_user(),
@@ -50,3 +51,13 @@ class ModelTests(TestCase):
         )
 
         self.assertEqual(str(ingredient), ingredient.name)
+
+    def test_recipy_str(self):
+        # Test the recipy string representation
+        recipe = models.Recipe.objects.create(
+            user=sample_user(),
+            title='Steak and mushroom sauce',
+            time_minutes=5,
+            price=5.00
+        )
+        self.assertEqual(str(recipe), recipe.title)
