@@ -11,7 +11,6 @@ class BaseRecipeAttrViewSet(viewsets.GenericViewSet,
                             mixins.CreateModelMixin):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-    queryset = Tag.objects.all()
 
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user).order_by('-name')
@@ -20,6 +19,7 @@ class BaseRecipeAttrViewSet(viewsets.GenericViewSet,
 class TagViewSet(BaseRecipeAttrViewSet):
     # Manage tags in the database
     serializer_class = serializers.TagSerializer
+    queryset = Tag.objects.all()
 
     def perform_create(self, serializer):
         # Create new tag
@@ -29,6 +29,7 @@ class TagViewSet(BaseRecipeAttrViewSet):
 class IngredientViewSet(BaseRecipeAttrViewSet):
     # Manage ingredients in the database
     serialier_class = serializers.IngredientSerializer
+    queryset = Ingredient.objects.all()
 
     def perform_create(self, serializer):
         # Create a new ingredient
