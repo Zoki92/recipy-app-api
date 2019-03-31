@@ -8,7 +8,7 @@ from rest_framework.test import APIClient
 from core.models import Recipe
 from recipy.serializers import RecipeSerializer
 
-RECIPES_URL = reverse('recipe:recipe-list')
+RECIPES_URL = reverse('recipy:recipe-list')
 
 
 def sample_recipe(user, **params):
