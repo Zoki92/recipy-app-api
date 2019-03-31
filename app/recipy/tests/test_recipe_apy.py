@@ -5,7 +5,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from core.models import Recipe
+from core.models import Recipe, Tag, Ingredient
 from recipy.serializers import RecipeSerializer, RecipeDetailSerializer
 
 RECIPES_URL = reverse('recipy:recipe-list')
@@ -24,12 +24,12 @@ def sample_recipe(user, **params):
 
 def sample_ingredient(user, name='Cinnamon'):
     # Create and return a sample ingredient
-    return Recipe.objects.create(user=user, name=name)
+    return Ingredient.objects.create(user=user, name=name)
 
 
 def sample_tag(user, name='Main course'):
     # Create and return a sample tag
-    return Recipe.objects.create(user=user, name=name)
+    return Tag.objects.create(user=user, name=name)
 
 
 def detail_url(recipe_id):
@@ -91,7 +91,7 @@ class PrivateRecipeApiTests(TestCase):
         # Test viewing a recipe detail
         recipe = sample_recipe(user=self.user)
         recipe.tags.add(sample_tag(user=self.user))
-        recipe.add(sample_ingredient(user=self.user))
+        recipe.ingredients.add(sample_ingredient(user=self.user))
 
         url = detail_url(recipe.id)
         res = self.client.get(url)
