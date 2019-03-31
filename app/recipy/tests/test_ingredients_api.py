@@ -12,7 +12,6 @@ from recipy.serializers import IngredientSerializer
 INGREDIENTS_URL = reverse('recipy:ingredient-list')
 
 
-
 class PublicIngredientsApiTests(TestCase):
     # Test the publicly available ingredients API
 
@@ -23,6 +22,7 @@ class PublicIngredientsApiTests(TestCase):
         # Test that login is required to access the endpoint
         res = self.client.get(INGREDIENTS_URL)
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
 
 class PrivateIngredientsApiTest(TestCase):
     # Test ingredients can be retrieved by authorized user
@@ -35,7 +35,6 @@ class PrivateIngredientsApiTest(TestCase):
         self.client = APIClient()
         self.client.force_authenticate(self.user)
 
-    
     def test_retrieve_ingredient_list(self):
         # Test retrieving a list of ingredients
         Ingredient.objects.create(user=self.user, name='Kale')
@@ -60,21 +59,20 @@ class PrivateIngredientsApiTest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 1)
         self.assertEqual(res.data[0]['name'], ingredient['name'])
-    
+
     def test_create_ingredient_successful(self):
         # Test create new ingredient
         payload = {'name': 'Cabage'}
         self.client.post(INGREDIENTS_URL, payload)
 
         exists = Ingredient.objects.filter(
-            user = self.user,
-            name = payload['name']
+            user=self.user,
+            name=payload['name']
         )
         self.assertTrue(exists)
-    
+
     def test_create_ingredient_invalid(self):
         payload = {'name': ''}
         res = self.client.post(INGREDIENTS_URL, payload)
 
-        self.asserrtEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
