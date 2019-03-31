@@ -28,7 +28,7 @@ class TagViewSet(BaseRecipeAttrViewSet):
 
 class IngredientViewSet(BaseRecipeAttrViewSet):
     # Manage ingredients in the database
-    serialier_class = serializers.IngredientSerializer
+    serializer_class = serializers.IngredientSerializer
     queryset = Ingredient.objects.all()
 
     def perform_create(self, serializer):
